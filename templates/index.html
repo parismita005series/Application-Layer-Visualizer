@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Application Layer Visualizer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>Application Layer Visualizer</h1>
+    <p>DNS • HTTP • SMTP Protocol Simulation</p>
+</header>
+
+
+<main class="dashboard">
+
+    <!-- ========================= -->
+    <!-- LEFT PANEL -->
+    <!-- ========================= -->
+
+    <section class="panel">
+
+        <div class="title-row">
+            <h2>Activity Panel</h2>
+
+            <span id="activityBadge">
+                Browsing
+            </span>
+        </div>
+
+
+        <!-- TABS -->
+
+        <div class="tabs">
+
+            <button
+                type="button"
+                class="tab active"
+                data-activity="browsing">
+                Browsing
+            </button>
+
+            <button
+                type="button"
+                class="tab"
+                data-activity="mail">
+                Mail
+            </button>
+
+            <button
+                type="button"
+                class="tab"
+                data-activity="streaming">
+                Streaming
+            </button>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- BROWSING -->
+        <!-- ========================= -->
+
+        <div
+            id="form-browsing"
+            class="activity-form">
+
+            <h3>🌐 Web Browsing</h3>
+
+            <label for="url">
+                Enter URL
+            </label>
+
+            <div class="inline">
+
+                <input
+                    id="url"
+                    type="text"
+                    placeholder="https://example.com">
+
+                <button
+                    type="button"
+                    id="visitBtn"
+                    class="primary">
+                    Visit
+                </button>
+
+            </div>
+
+
+            <div class="status">
+
+                <strong>Status:</strong>
+
+                <span id="browsingStatus">
+                    Ready
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- MAIL -->
+        <!-- ========================= -->
+
+        <div
+            id="form-mail"
+            class="activity-form hidden">
+
+            <h3>📧 Compose Mail</h3>
+
+
+            <label for="mailTo">
+                To
+            </label>
+
+            <input
+                id="mailTo"
+                type="email"
+                placeholder="friend@example.com">
+
+
+            <label for="mailSubject">
+                Subject
+            </label>
+
+            <input
+                id="mailSubject"
+                type="text"
+                placeholder="Test Email">
+
+
+            <label for="mailBody">
+                Body
+            </label>
+
+            <textarea
+                id="mailBody"
+                rows="5"
+                placeholder="Hello! This is a test email."></textarea>
+
+
+            <button
+                type="button"
+                id="sendMailBtn"
+                class="primary full">
+                Send Email
+            </button>
+
+
+            <div class="status">
+
+                <strong>Status:</strong>
+
+                <span id="mailStatus">
+                    Ready
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- STREAMING -->
+        <!-- ========================= -->
+        <!-- STREAMING -->
+
+<div id="form-streaming" class="activity-form hidden">
+
+    <h3>🎬 Video Streaming</h3>
+
+    <label for="streamingUrl">
+        Enter Video URL
+    </label>
+
+    <div class="inline">
+
+        <input
+            id="streamingUrl"
+            type="text"
+            placeholder="https://youtube.com/watch?v=example">
+
+    </div>
+
+
+    <label for="quality">
+        Quality
+    </label>
+
+    <select id="quality">
+
+        <option value="360p">360p</option>
+        <option value="480p">480p</option>
+        <option value="720p" selected>720p</option>
+        <option value="1080p">1080p</option>
+
+    </select>
+
+
+    <div class="video-box">
+
+        <div class="play-icon">
+            ▶
+        </div>
+
+        <p>
+            Simulated Video
+        </p>
+
+        <div class="progress">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="button-row">
+
+        <button
+            type="button"
+            id="playBtn"
+            class="primary">
+            ▶ Play
+        </button>
+
+        <button
+            type="button"
+            id="pauseBtn">
+            ⏸ Pause
+        </button>
+
+    </div>
+
+
+    <div class="status">
+
+        <strong>Status:</strong>
+
+        <span id="streamingStatus">
+            Ready
+        </span>
+
+    </div>
+
+</div>
+
+
+        <!-- ========================= -->
+        <!-- ACTIVITY LOG -->
+        <!-- ========================= -->
+
+        <div class="log-title">
+
+            <h3>
+                Activity Log
+            </h3>
+
+            <button
+                type="button"
+                id="clearLog">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div
+            id="activityLog"
+            class="activity-log">
+
+            <div class="empty">
+                No activity yet.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- RIGHT PANEL -->
+    <!-- ========================= -->
+
+    <section class="panel">
+
+        <div class="title-row">
+
+            <h2>
+                Protocol Visualization Panel
+            </h2>
+
+            <span id="protocolBadge">
+                Waiting
+            </span>
+
+        </div>
+
+
+        <div class="step-info">
+
+            <strong id="protocolFlow">
+                DNS → HTTP
+            </strong>
+
+            <strong id="stepCounter">
+                0 / 0
+            </strong>
+
+        </div>
+
+
+        <!-- MESSAGE STAGE -->
+
+        <div
+            id="messageStage"
+            class="message-stage">
+
+            <div class="empty-stage">
+
+                <div class="network">
+                    ⇄
+                </div>
+
+                <h3>
+                    Waiting for activity...
+                </h3>
+
+                <p>
+                    Perform an activity from the left
+                    panel to visualize the protocol exchange.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TIMELINE -->
+
+        <div
+            id="timeline"
+            class="timeline">
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls">
+
+            <button
+                type="button"
+                id="prevBtn">
+                ◀ Previous
+            </button>
+
+            <button
+                type="button"
+                id="pauseVizBtn">
+                ⏸ Pause
+            </button>
+
+            <button
+                type="button"
+                id="nextBtn">
+                Next ▶
+            </button>
+
+            <button
+                type="button"
+                id="replayBtn">
+                ↻ Replay
+            </button>
+
+        </div>
+
+
+        <p class="note">
+            Simulation only — protocol messages are modeled
+            for educational visualization.
+        </p>
+
+    </section>
+
+</main>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
