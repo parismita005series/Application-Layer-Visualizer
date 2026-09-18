@@ -30,7 +30,7 @@ The project provides an interactive way to understand how protocols such as **DN
 
 - **Python**
 - **Flask**
-- **HTML5**
+- **HTML**
 - **CSS**
 - **JavaScript**
 
