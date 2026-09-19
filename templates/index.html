@@ -72,7 +72,7 @@
             id="form-browsing"
             class="activity-form">
 
-            <h3>🌐 Web Browsing</h3>
+            <h3>Web Browsing</h3>
 
             <label for="url">
                 Enter URL
@@ -83,6 +83,7 @@
                 <input
                     id="url"
                     type="text"
+                    value="https://example.com"
                     placeholder="https://example.com">
 
                 <button
@@ -116,7 +117,7 @@
             id="form-mail"
             class="activity-form hidden">
 
-            <h3>📧 Compose Mail</h3>
+            <h3>Compose Mail</h3>
 
 
             <label for="mailTo">
@@ -126,6 +127,7 @@
             <input
                 id="mailTo"
                 type="email"
+                value="alice@example.com"
                 placeholder="friend@example.com">
 
 
@@ -136,6 +138,7 @@
             <input
                 id="mailSubject"
                 type="text"
+                value="CN Protocol Assignment"
                 placeholder="Test Email">
 
 
@@ -146,7 +149,12 @@
             <textarea
                 id="mailBody"
                 rows="5"
-                placeholder="Hello! This is a test email."></textarea>
+                placeholder="Hello! This is a test email.">Hello Alice,
+
+Here is the Application Layer protocol simulation demo.
+
+Best regards,
+Student</textarea>
 
 
             <button
@@ -173,88 +181,88 @@
         <!-- ========================= -->
         <!-- STREAMING -->
         <!-- ========================= -->
-        <!-- STREAMING -->
 
-<div id="form-streaming" class="activity-form hidden">
+        <div id="form-streaming" class="activity-form hidden">
 
-    <h3>🎬 Video Streaming</h3>
+            <h3>Video Streaming</h3>
 
-    <label for="streamingUrl">
-        Enter Video URL
-    </label>
+            <label for="streamingUrl">
+                Enter Video URL
+            </label>
 
-    <div class="inline">
+            <div class="inline">
 
-        <input
-            id="streamingUrl"
-            type="text"
-            placeholder="https://youtube.com/watch?v=example">
+                <input
+                    id="streamingUrl"
+                    type="text"
+                    value="https://video.example.com/live/lecture"
+                    placeholder="https://youtube.com/watch?v=example">
 
-    </div>
-
-
-    <label for="quality">
-        Quality
-    </label>
-
-    <select id="quality">
-
-        <option value="360p">360p</option>
-        <option value="480p">480p</option>
-        <option value="720p" selected>720p</option>
-        <option value="1080p">1080p</option>
-
-    </select>
+            </div>
 
 
-    <div class="video-box">
+            <label for="quality">
+                Quality
+            </label>
 
-        <div class="play-icon">
-            ▶
+            <select id="quality">
+
+                <option value="360p">360p (SD)</option>
+                <option value="480p">480p (SD)</option>
+                <option value="720p" selected>720p (HD)</option>
+                <option value="1080p">1080p (FHD)</option>
+
+            </select>
+
+
+            <div class="video-box">
+
+                <div class="play-icon">
+                    ▶
+                </div>
+
+                <p id="videoDisplayTitle">
+                    Simulated Video Stream
+                </p>
+
+                <div class="progress">
+
+                    <div id="progressBar"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    type="button"
+                    id="playBtn"
+                    class="primary">
+                    ▶ Play
+                </button>
+
+                <button
+                    type="button"
+                    id="pauseBtn">
+                    ⏸ Pause
+                </button>
+
+            </div>
+
+
+            <div class="status">
+
+                <strong>Status:</strong>
+
+                <span id="streamingStatus">
+                    Ready
+                </span>
+
+            </div>
+
         </div>
-
-        <p>
-            Simulated Video
-        </p>
-
-        <div class="progress">
-
-            <div id="progressBar"></div>
-
-        </div>
-
-    </div>
-
-
-    <div class="button-row">
-
-        <button
-            type="button"
-            id="playBtn"
-            class="primary">
-            ▶ Play
-        </button>
-
-        <button
-            type="button"
-            id="pauseBtn">
-            ⏸ Pause
-        </button>
-
-    </div>
-
-
-    <div class="status">
-
-        <strong>Status:</strong>
-
-        <span id="streamingStatus">
-            Ready
-        </span>
-
-    </div>
-
-</div>
 
 
         <!-- ========================= -->
@@ -293,102 +301,87 @@
     <!-- RIGHT PANEL -->
     <!-- ========================= -->
 
-    <section class="panel">
+    <section class="panel viz-panel">
 
         <div class="title-row">
 
-            <h2>
-                Protocol Visualization Panel
-            </h2>
+            <div>
+                <h2>Protocol Visualization Panel</h2>
+                <div class="phase-row">
+                    <span id="protocolBadge">Waiting</span>
+                    <span id="phaseBadge" class="phase-pill">Ready</span>
+                </div>
+            </div>
 
-            <span id="protocolBadge">
-                Waiting
-            </span>
-
-        </div>
-
-
-        <div class="step-info">
-
-            <strong id="protocolFlow">
-                DNS → HTTP
-            </strong>
-
-            <strong id="stepCounter">
-                0 / 0
-            </strong>
+            <div class="step-header-info">
+                <strong id="protocolFlow">DNS → TLS → HTTP</strong>
+                <span id="stepCounter" class="counter-badge">0 / 0</span>
+            </div>
 
         </div>
 
 
-        <!-- MESSAGE STAGE -->
+        <!-- DUAL COLUMN VISUALIZATION -->
+        <div class="viz-grid">
 
-        <div
-            id="messageStage"
-            class="message-stage">
-
-            <div class="empty-stage">
-
-                <div class="network">
-                    ⇄
+            <!-- LEFT SUB-COLUMN: NODE FLOW PIPELINE -->
+            <div class="flow-column">
+                <div class="flow-header">
+                    <span>Protocol Flow Nodes</span>
+                    <small>Click any node to inspect</small>
                 </div>
 
-                <h3>
-                    Waiting for activity...
-                </h3>
+                <div id="nodeFlowContainer" class="node-flow-container">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
 
-                <p>
-                    Perform an activity from the left
-                    panel to visualize the protocol exchange.
-                </p>
-
+            <!-- RIGHT SUB-COLUMN: MESSAGE DETAILS -->
+            <div class="inspection-column">
+                <div id="messageStage" class="message-stage">
+                    <div class="empty-stage">
+                        <div class="network">⇄</div>
+                        <h3>Waiting for activity...</h3>
+                        <p>
+                            Select an activity from the left panel and click 
+                            <strong>Visit</strong>, <strong>Send Email</strong>, or <strong>Play</strong> 
+                            to visualize the live protocol exchange.
+                        </p>
+                    </div>
+                </div>
             </div>
 
         </div>
 
 
         <!-- TIMELINE -->
-
-        <div
-            id="timeline"
-            class="timeline">
-        </div>
+        <div id="timeline" class="timeline"></div>
 
 
-        <!-- CONTROLS -->
+        <!-- CONTROLS & SPEED -->
+        <div class="controls-row">
 
-        <div class="controls">
+            <div class="controls">
+                <button type="button" id="prevBtn" title="Previous step">◀ Prev</button>
+                <button type="button" id="pauseVizBtn" class="primary" title="Pause / Resume">⏸ Pause</button>
+                <button type="button" id="nextBtn" title="Next step">Next ▶</button>
+                <button type="button" id="replayBtn" title="Replay sequence">↻ Replay</button>
+            </div>
 
-            <button
-                type="button"
-                id="prevBtn">
-                ◀ Previous
-            </button>
-
-            <button
-                type="button"
-                id="pauseVizBtn">
-                ⏸ Pause
-            </button>
-
-            <button
-                type="button"
-                id="nextBtn">
-                Next ▶
-            </button>
-
-            <button
-                type="button"
-                id="replayBtn">
-                ↻ Replay
-            </button>
+            <div class="speed-control">
+                <label for="speedSelect">Speed:</label>
+                <select id="speedSelect">
+                    <option value="2500">0.7x Slow</option>
+                    <option value="1600" selected>1.0x Normal</option>
+                    <option value="900">1.8x Fast</option>
+                </select>
+            </div>
 
         </div>
 
 
         <p class="note">
-            Simulation only — protocol messages are modeled
-            for educational visualization.
+            Simulation only — protocol messages and packet frames are modeled for educational visualization.
         </p>
 
     </section>
